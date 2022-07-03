@@ -19,7 +19,7 @@
 #elif defined(_WIN32) || defined(__CYGWIN__)
 #include <io.h>
 
-
+#endif
 
 
 #ifdef _WIN32 
