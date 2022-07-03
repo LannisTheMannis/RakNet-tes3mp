@@ -116,7 +116,7 @@ SocketDescriptor::SocketDescriptor(unsigned short _port, const char *_hostAddres
 // All systems must use the same value for this variable.
 //bool RAK_DLL_EXPORT NetworkID::peerToPeerMode=false;
 
-constexpr SystemAddress& SystemAddress::operator = ( const SystemAddress& input )
+const SystemAddress& SystemAddress::operator = ( const SystemAddress& input )
 {
 	memcpy(&address, &input.address, sizeof(address));
 	systemIndex = input.systemIndex;
