@@ -29,6 +29,8 @@ option( RAKNET_ENABLE_DLL		"Generate the DLL project if true." 			TRUE )
 option( RAKNET_ENABLE_STATIC	"Generate the static library project if true." 	TRUE )
 option( RAKNET_GENERATE_INCLUDE_ONLY_DIR "Setup a include/RakNet/ directory in which all the headers are copied." FALSE )
 
+set(RAKNET_ENABLE_SAMPLES FALSE)
+set(RAKNET_ENABLE_DLL FALSE)
 set( RAKNETHEADERFILES ${RakNet_SOURCE_DIR}/Source ) #This name doesn't follow CMake conventions but for retro compatibility I'll let it there.
 
 if( RAKNET_GENERATE_INCLUDE_ONLY_DIR )
@@ -53,6 +55,10 @@ add_subdirectory(Lib)
 
 set(RAKNET_COMMON_LIBS RakNetLibStatic)
 
+install(LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/raknet
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/raknet
+        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/raknet
+)
 if( RAKNET_GENERATE_SAMPLES )
 	add_subdirectory(Samples)
 endif()

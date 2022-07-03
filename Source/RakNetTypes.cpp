@@ -123,6 +123,13 @@ SystemAddress& SystemAddress::operator = ( const SystemAddress& input )
 	debugPort = input.debugPort;
 	return *this;
 }
+constexpr SystemAddress& SystemAddress::operator = ( const SystemAddress& input )
+{
+	memcpy(&address, &input.address, sizeof(address));
+	systemIndex = input.systemIndex;
+	debugPort = input.debugPort;
+	return *this;
+}
 bool SystemAddress::EqualsExcludingPort( const SystemAddress& right ) const
 {
 	return (address.addr4.sin_family==AF_INET && address.addr4.sin_addr.s_addr==right.address.addr4.sin_addr.s_addr)
