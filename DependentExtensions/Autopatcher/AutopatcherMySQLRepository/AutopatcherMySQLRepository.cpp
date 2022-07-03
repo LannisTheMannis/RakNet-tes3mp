@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -492,7 +493,7 @@ bool AutopatcherMySQLRepository::UpdateApplicationFiles(const char *applicationN
 			RakAssert(mysql_fetch_lengths (result) [1] == HASH_LENGTH);  // check the data is sensible
 			memcpy (fi.contentHash, row [1], HASH_LENGTH);
 		}
-	    newestFiles.Insert (fi, _FILE_AND_LINE_ );
+	    newestFiles.Insert (fi );
 	}    
 	mysql_free_result(result);
 

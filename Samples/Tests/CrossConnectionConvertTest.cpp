@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -33,10 +34,10 @@ int CrossConnectionConvertTest::RunTest(DataStructures::List<RakString> params,b
 	unsigned short clientPort;
 	bool gotNotification;
 	server=RakPeerInterface::GetInstance();
-	destroyList.Clear(false,_FILE_AND_LINE_);
-	destroyList.Push(server,_FILE_AND_LINE_);
+	destroyList.Clear(false);
+	destroyList.Push(server);
 	client=RakPeerInterface::GetInstance();
-	destroyList.Push(client,_FILE_AND_LINE_);
+	destroyList.Push(client);
 
 	
 
@@ -92,7 +93,7 @@ int CrossConnectionConvertTest::RunTest(DataStructures::List<RakString> params,b
 					printf("ID_PING\n");
 				connectionAttemptTime=GetTimeMS()+1000;
 				p->systemAddress.ToString(false,clientIP);
-				clientPort=p->systemAddress.port;
+				clientPort = p->systemAddress.GetPort();
 				gotNotification=false;
 			}
 			else if (p->data[0]==ID_UNCONNECTED_PONG)

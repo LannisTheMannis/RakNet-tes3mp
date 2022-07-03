@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -41,12 +42,12 @@ int OfflineMessagesConvertTest::RunTest(DataStructures::List<RakString> params,b
 	bool recievedProperPingData=false;
 
 	int nextTest;
-	destroyList.Clear(false,_FILE_AND_LINE_);
+	destroyList.Clear(false);
 
 	RakPeerInterface *peer1=RakPeerInterface::GetInstance();
-	destroyList.Push( peer1,_FILE_AND_LINE_);
+	destroyList.Push( peer1);
 	RakPeerInterface *peer2=RakPeerInterface::GetInstance();
-	destroyList.Push(peer2,_FILE_AND_LINE_);
+	destroyList.Push(peer2);
 
 	bool sentPacket=false;
 	nextTest=0;

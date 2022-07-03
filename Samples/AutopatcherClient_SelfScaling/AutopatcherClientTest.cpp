@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -158,7 +159,7 @@ public:
 			fseek(fpPatch, 0, SEEK_END);
 			*newFileSize = ftell(fpPatch);
 			fseek(fpPatch, 0, SEEK_SET);
-			*newFileContents = (char*) rakMalloc_Ex(*newFileSize, _FILE_AND_LINE_);
+			*newFileContents = (char*) rakMalloc_Ex(*newFileSize);
 			fread(*newFileContents, 1, *newFileSize, fpPatch);
 			fclose(fpPatch);
 
@@ -482,14 +483,14 @@ void UploadInstanceToCloud(RakNet::CloudClient *cloudClient, RakNet::RakNetGUID 
 void GetClientSubscription(RakNet::CloudClient *cloudClient, RakNet::RakNetGUID serverGuid)
 {
 	RakNet::CloudQuery cloudQuery;
-	cloudQuery.keys.Push(RakNet::CloudKey(CLOUD_CLIENT_PRIMARY_KEY,0),_FILE_AND_LINE_);
+	cloudQuery.keys.Push(RakNet::CloudKey(CLOUD_CLIENT_PRIMARY_KEY,0));
 	cloudQuery.subscribeToResults=false;
 	cloudClient->Get(&cloudQuery, serverGuid);
 }
 void GetServers(RakNet::CloudClient *cloudClient, RakNet::RakNetGUID serverGuid)
 {
 	RakNet::CloudQuery cloudQuery;
-	cloudQuery.keys.Push(RakNet::CloudKey("CloudConnCount",0),_FILE_AND_LINE_); // CloudConnCount is defined at the top of CloudServerHelper.cpp
+	cloudQuery.keys.Push(RakNet::CloudKey("CloudConnCount",0)); // CloudConnCount is defined at the top of CloudServerHelper.cpp
 	cloudQuery.subscribeToResults=false;
 	cloudClient->Get(&cloudQuery, serverGuid);
 }

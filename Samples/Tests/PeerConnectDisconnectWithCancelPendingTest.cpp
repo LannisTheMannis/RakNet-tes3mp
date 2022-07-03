@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -51,13 +52,13 @@ int PeerConnectDisconnectWithCancelPendingTest::RunTest(DataStructures::List<Rak
 	SystemAddress currentSystem;
 
 	Packet *packet;
-	destroyList.Clear(false,_FILE_AND_LINE_);
+	destroyList.Clear(false);
 
 	//Initializations of the arrays
 	for (int i=0;i<peerNum;i++)
 	{
 		peerList[i]=RakPeerInterface::GetInstance();
-		destroyList.Push(peerList[i],_FILE_AND_LINE_);
+		destroyList.Push(peerList[i]);
 
 		peerList[i]->Startup(maxConnections, &SocketDescriptor(60000+i,0), 1);
 		peerList[i]->SetMaximumIncomingConnections(maxConnections);

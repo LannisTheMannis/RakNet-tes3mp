@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -510,7 +511,7 @@ int main(void)
 				replicaManager.GetReplicasCreatedByMe(replicaListOut);
 				replicaManager.BroadcastDestructionList(replicaListOut, RakNet::UNASSIGNED_SYSTEM_ADDRESS);
 				for (unsigned int i=0; i < replicaListOut.Size(); i++)
-					RakNet::OP_DELETE(replicaListOut[i], _FILE_AND_LINE_);
+					delete replicaListOut[i];
 			}
 
 		}

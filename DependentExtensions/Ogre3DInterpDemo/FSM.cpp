@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -29,7 +30,7 @@ void FSM::Clear(void)
 		stateHistory[stateHistory.Size()-1]->OnLeave(this, true);
 	for (i=0; i < stateHistory.Size(); i++)
 		stateHistory[i]->FSMRemoveRef(this);
-	stateHistory.Clear(false, _FILE_AND_LINE_);
+	stateHistory.Clear(false);
 }
 State *FSM::CurrentState(void) const
 {
@@ -66,7 +67,7 @@ void FSM::AddState(State *state)
 		stateHistory[stateHistory.Size()-1]->OnLeave(this, false);
 	state->FSMAddRef(this);
 	state->OnEnter(this, true);
-	stateHistory.Insert(state, _FILE_AND_LINE_ );
+	stateHistory.Insert(state );
 }
 void FSM::ReplaceState(const int index, State *state)
 {

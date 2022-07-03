@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -21,7 +22,7 @@ Lobby2ServerCommand Lobby2ServerWorkerThread(Lobby2ServerCommand input, bool *re
 	input.returnToSender = input.lobby2Message->ServerDBImpl(&input, postgreSQLInterface);
 	*returnOutput=input.returnToSender;
 	if (input.deallocMsgWhenDone && input.returnToSender==false)
-		RakNet::OP_DELETE(input.lobby2Message, _FILE_AND_LINE_);
+		RakNet::OP_DELETE(input.lobby2Message);
 	return input;
 }
 
@@ -70,15 +71,15 @@ bool Lobby2Server_PGSQL::ConnectToDB(const char *conninfo, int numWorkerThreads)
 	PostgreSQLInterface *connection;
 	for (i=0; i < numWorkerThreads; i++)
 	{
-		connection = RakNet::OP_NEW<PostgreSQLInterface>( _FILE_AND_LINE_ );
+		connection = RakNet::OP_NEW<PostgreSQLInterface>(  );
 		if (connection->Connect(conninfo)==false)
 		{
-			RakNet::OP_DELETE(connection, _FILE_AND_LINE_);
+			RakNet::OP_DELETE(connection);
 			ClearConnections();
 			return false;
 		}
 		connectionPoolMutex.Lock();
-		connectionPool.Insert(connection, _FILE_AND_LINE_ );
+		connectionPool.Insert(connection );
 		connectionPoolMutex.Unlock();
 	}
 
@@ -101,14 +102,14 @@ void Lobby2Server_PGSQL::PerThreadDestructor(void* factoryResult, void *context)
 	(void)context;
 
 	PostgreSQLInterface* p = (PostgreSQLInterface*)factoryResult;
-	RakNet::OP_DELETE(p, _FILE_AND_LINE_);
+	RakNet::OP_DELETE(p);
 }
 void Lobby2Server_PGSQL::ClearConnections(void)
 {
 	unsigned int i;
 	connectionPoolMutex.Lock();
 	for (i=0; i < connectionPool.Size(); i++)
-		RakNet::OP_DELETE(connectionPool[i], _FILE_AND_LINE_);
-	connectionPool.Clear(false, _FILE_AND_LINE_);
+		RakNet::OP_DELETE(connectionPool[i]);
+	connectionPool.Clear(false);
 	connectionPoolMutex.Unlock();
 }

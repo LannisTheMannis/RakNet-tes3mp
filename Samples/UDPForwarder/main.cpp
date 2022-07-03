@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -62,7 +63,7 @@ int main()
 // 	peer1Addr.FromString("127.0.0.1");
 
 	unsigned short fowardPort;
-	SOCKET forwardingSocket;
+	__UDPSOCKET__ forwardingSocket;
 	if (!udpForwarder.StartForwarding(peer0Addr,peer1Addr, timeoutOnNoDataMS, "127.0.0.1", sd1.socketFamily, &fowardPort, &forwardingSocket))
 	{
 		printf("Socket error\n");

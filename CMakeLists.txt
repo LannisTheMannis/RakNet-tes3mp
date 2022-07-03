@@ -1,60 +1,60 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.5)
 
-project(RakNet)
+project(CrabNet)
 
-if( NOT APPLE )
-# check 64 bit
-if( CMAKE_SIZEOF_VOID_P MATCHES "4" )
-  set( HAVE_64_BIT 0 )
-else(  CMAKE_SIZEOF_VOID_P MATCHES "4")
-  set( HAVE_64_BIT 1 )
-endif(  CMAKE_SIZEOF_VOID_P MATCHES "4")
-endif( NOT APPLE )
+set(CMAKE_CXX_STANDARD 11)
 
-IF (WIN32 AND NOT UNIX)
-	set (PROGRAMFILESX86 $ENV{PROGRAMFILES})
-	string(REPLACE "\\" "/" PROGRAMFILESX86 ${PROGRAMFILESX86})
-ENDIF(WIN32 AND NOT UNIX)
+if (NOT APPLE)
+    # check 64 bit
+    if (CMAKE_SIZEOF_VOID_P MATCHES "4")
+        set(HAVE_64_BIT 0)
+    else (CMAKE_SIZEOF_VOID_P MATCHES "4")
+        set(HAVE_64_BIT 1)
+    endif (CMAKE_SIZEOF_VOID_P MATCHES "4")
+endif (NOT APPLE)
 
 IF (WIN32 AND NOT UNIX)
-	set(RAKNET_LIBRARY_LIBS ws2_32.lib)
-ELSE(WIN32 AND NOT UNIX)
-	set(RAKNET_LIBRARY_LIBS pthread)
-ENDIF(WIN32 AND NOT UNIX)
+    set(PROGRAMFILESX86 $ENV{PROGRAMFILES})
+    string(REPLACE "\\" "/" PROGRAMFILESX86 ${PROGRAMFILESX86})
+ENDIF (WIN32 AND NOT UNIX)
+
+set(CMAKE_DEBUG_POSTFIX "d")
+
+IF (WIN32 AND NOT UNIX)
+    set(CRABNET_LIBRARY_LIBS ws2_32.lib)
+    set(CRABNET_LIBRARY_SO_NAME RakNetDLL)
+ELSE (WIN32 AND NOT UNIX)
+    set(CRABNET_LIBRARY_LIBS pthread)
+    set(CRABNET_LIBRARY_SO_NAME raknet)
+ENDIF (WIN32 AND NOT UNIX)
 
 
 # Options
-option( RAKNET_ENABLE_SAMPLES 	"Generate RakNet sample projects if true." 		TRUE  )
-option( RAKNET_ENABLE_DLL		"Generate the DLL project if true." 			TRUE )
-option( RAKNET_ENABLE_STATIC	"Generate the static library project if true." 	TRUE )
-option( RAKNET_GENERATE_INCLUDE_ONLY_DIR "Setup a include/RakNet/ directory in which all the headers are copied." FALSE )
+option(CRABNET_ENABLE_SAMPLES "Generate RakNet sample projects." FALSE)
+option(CRABNET_ENABLE_DLL "Generate the DLL project." TRUE)
+option(CRABNET_ENABLE_STATIC "Generate the static library project." TRUE)
 
-set(RAKNET_ENABLE_SAMPLES FALSE)
-set(RAKNET_ENABLE_DLL FALSE)
-set( RAKNETHEADERFILES ${RakNet_SOURCE_DIR}/Source ) #This name doesn't follow CMake conventions but for retro compatibility I'll let it there.
+option(CRABNET_ENABLE_PVS "Enable PVS Studio Analyzer" FALSE)
 
-if( RAKNET_GENERATE_INCLUDE_ONLY_DIR )
-	set( RAKNET_INCLUDE_ONLY_DIR ${RakNet_SOURCE_DIR}/include ) # this will be visible by client code
-	set( RAKNET_NAMED_INCLUDE_ONLY_DIR ${RAKNET_INCLUDE_ONLY_DIR}/RakNet )
-	message( STATUS "Setting up the ${RAKNET_NAMED_INCLUDE_ONLY_DIR} directory..." )
-	# Now setup the include/RakNet/*.h files.
-	file( MAKE_DIRECTORY ${RAKNET_NAMED_INCLUDE_ONLY_DIR} )
-	file( COPY ${RAKNETHEADERFILES}/ DESTINATION ${RAKNET_NAMED_INCLUDE_ONLY_DIR} FILES_MATCHING PATTERN "*.h"  )
-	message( STATUS "DONE: Setting up the ${RAKNET_NAMED_INCLUDE_ONLY_DIR} directory." )
-endif()
+option(CRABNET_ENABLE_LIBCAT_SECURITY "Enable secure connection support." FALSE)
 
-set( RAKNET_INCLUDE_DIRS ${RAKNETHEADERFILES} ${RAKNET_INCLUDE_ONLY_DIR} PARENT_SCOPE ) # Visible from outside
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CmakeIncludes)
 
-include(./CmakeIncludes/CmakeMacros.txt)
-FIXLINKOPTIONS()
-FIXCOMPILEOPTIONS()
+include(CmakeMacros)
+include(PVS-Studio)
+
+if (MSVC)
+    FIXLINKOPTIONS()
+    FIXCOMPILEOPTIONS()
+endif (MSVC)
 
 
-add_subdirectory(Lib)
+include_directories(SYSTEM include/raknet DependentExtensions Source)
 
+add_subdirectory(lib)
 
-set(RAKNET_COMMON_LIBS RakNetLibStatic)
+set(CRABNET_COMMON_LIBS RakNetLibStatic)
 
-if( RAKNET_GENERATE_SAMPLES )
-	add_subdirectory(Samples)
-endif()
+if (CRABNET_ENABLE_SAMPLES)
+    add_subdirectory(Samples)
+endif ()

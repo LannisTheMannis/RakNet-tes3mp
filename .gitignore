@@ -1,3 +1,6 @@
+*.a
+*.so
+*.dll
 # Visual Studio
 [Dd]ebug/
 [Rr]elease/

@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -37,7 +38,7 @@ GetSocket
 */
 int ConnectWithSocketTest::RunTest(DataStructures::List<RakString> params,bool isVerbose,bool noPauses)
 {
-	destroyList.Clear(false,_FILE_AND_LINE_);
+	destroyList.Clear(false);
 
 	RakPeerInterface *server,*client;
 
@@ -129,7 +130,7 @@ int ConnectWithSocketTest::RunTest(DataStructures::List<RakString> params,bool i
 
 		if(!CommonFunctions::ConnectionStateMatchesOptions (client,serverAddress,true,true,true,true))
 		{
-			client->ConnectWithSocket("127.0.0.1",serverAddress.port,0,0,theSocket);
+			client->ConnectWithSocket("127.0.0.1",serverAddress.z,0,0,theSocket);
 		}
 
 		RakSleep(100);
@@ -184,12 +185,12 @@ RakString ConnectWithSocketTest::ErrorCodeToString(int errorCode)
 
 ConnectWithSocketTest::ConnectWithSocketTest(void)
 {
-	errorList.Push("Client did not connect after 5 seconds",_FILE_AND_LINE_);
-	errorList.Push("Control test send didn't work",_FILE_AND_LINE_);
-	errorList.Push("Client did not connect after 5 secods Using ConnectWithSocket, could be GetSockets or ConnectWithSocket problem",_FILE_AND_LINE_);
-	errorList.Push("Server did not recieve test packet from client",_FILE_AND_LINE_);
-	errorList.Push("Client did not connect after 5 secods Using ConnectWithSocket, could be GetSocket or ConnectWithSocket problem",_FILE_AND_LINE_);
-	errorList.Push("Server did not recieve test packet from client",_FILE_AND_LINE_);
+	errorList.Push("Client did not connect after 5 seconds");
+	errorList.Push("Control test send didn't work");
+	errorList.Push("Client did not connect after 5 secods Using ConnectWithSocket, could be GetSockets or ConnectWithSocket problem");
+	errorList.Push("Server did not recieve test packet from client");
+	errorList.Push("Client did not connect after 5 secods Using ConnectWithSocket, could be GetSocket or ConnectWithSocket problem");
+	errorList.Push("Server did not recieve test packet from client");
 
 }
 

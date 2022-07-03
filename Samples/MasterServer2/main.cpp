@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -55,7 +56,7 @@ void main_sockets(void)
 using namespace RakNet;
 void main_RakNet_Post(void)
 {
-	TCPInterface *tcp = RakNet::OP_NEW<TCPInterface>(__FILE__,__LINE__);
+	TCPInterface *tcp = RakNet::OP_NEW<TCPInterface>();
 	tcp->Start(0, 64);
 	tcp->Connect(MASTER_SERVER_ADDRESS, MASTER_SERVER_PORT, true);
 
@@ -63,7 +64,7 @@ void main_RakNet_Post(void)
 	json_object_set(jsonObject, "__gameId", json_string("MotoGP_13") );
 	json_object_set(jsonObject, "__clientReqId", json_integer(0) );
 	json_object_set(jsonObject, "__timeoutSec", json_integer(60) );
-	//json_object_set(jsonObject, "mapname", json_string(RakString::NonVariadic("Joué-lés-tours").URLEncode().C_String()) );
+	//json_object_set(jsonObject, "mapname", json_string(RakString::NonVariadic("Jouï¿½-lï¿½s-tours").URLEncode().C_String()) );
 
 	char *ds = json_dumps(jsonObject,0);
 	RakString rspost = RakString::FormatForPOST(
@@ -99,7 +100,7 @@ void main_RakNet_Get(void)
 	HTTPConnection2 *httpConnection2;
 	httpConnection2 = HTTPConnection2::GetInstance();
 
-	TCPInterface *tcp = RakNet::OP_NEW<TCPInterface>(__FILE__,__LINE__);
+	TCPInterface *tcp = RakNet::OP_NEW<TCPInterface>();
 	tcp->Start(0, 64);
 	tcp->AttachPlugin(httpConnection2);
 

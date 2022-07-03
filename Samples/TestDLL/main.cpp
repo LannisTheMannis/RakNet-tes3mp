@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -65,11 +66,11 @@ int main()
 	SetRealloc(MyRealloc);
 	SetFree(MyFree);
 
-	char *cArray = RakNet::OP_NEW_ARRAY<char>(10,_FILE_AND_LINE_);
-	RakNet::OP_DELETE_ARRAY(cArray,_FILE_AND_LINE_);
+	char *cArray = RakNet::OP_NEW_ARRAY<char>(10);
+	RakNet::OP_DELETE_ARRAY(cArray);
 
 	DataStructures::List<int> intList;
-	intList.Push(5, _FILE_AND_LINE_ );
+	intList.Push(5 );
 	
 	f->GetMTUSize(RakNet::UNASSIGNED_SYSTEM_ADDRESS);
 	SystemAddress p1;

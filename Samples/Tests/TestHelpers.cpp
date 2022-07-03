@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -40,7 +41,7 @@ void TestHelpers::StandardServerPrep(RakPeerInterface *&server,DataStructures::L
 {
 
 	StandardServerPrep(server);
-	destroyList.Push(server,_FILE_AND_LINE_);
+	destroyList.Push(server);
 
 }
 
@@ -48,7 +49,7 @@ void TestHelpers::StandardClientPrep(RakPeerInterface *&client,DataStructures::L
 {
 
 	StandardClientPrep(client);
-	destroyList.Push(client,_FILE_AND_LINE_);
+	destroyList.Push(client);
 
 }
 

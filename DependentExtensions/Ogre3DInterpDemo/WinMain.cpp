@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -273,7 +274,7 @@ public:
 		replicaManager3->Reference(p);
 		static int count=0;
 		count++;
-		popcornList.Insert(p, _FILE_AND_LINE_ );
+		popcornList.Insert(p );
 		p->sceneNode = app->GetSceneManager()->getRootSceneNode()->createChildSceneNode();
 		p->sceneNode->attachObject(popcornKernel->clone(FormatString("%p",p)));
 

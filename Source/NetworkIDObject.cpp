@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -21,71 +22,78 @@ using namespace RakNet;
 
 NetworkIDObject::NetworkIDObject()
 {
-	networkID=UNASSIGNED_NETWORK_ID;
-	parent=0;
-	networkIDManager=0;
-	nextInstanceForNetworkIDManager=0;
+    networkID = UNASSIGNED_NETWORK_ID;
+    parent = nullptr;
+    networkIDManager = nullptr;
+    nextInstanceForNetworkIDManager = nullptr;
 }
+
 NetworkIDObject::~NetworkIDObject()
 {
-	if (networkIDManager)
-		networkIDManager->StopTrackingNetworkIDObject(this);
+    if (networkIDManager != nullptr)
+        networkIDManager->StopTrackingNetworkIDObject(this);
 }
-void NetworkIDObject::SetNetworkIDManager( NetworkIDManager *manager)
+
+void NetworkIDObject::SetNetworkIDManager(NetworkIDManager *manager)
 {
-	if (manager==networkIDManager)
-		return;
+    if (manager == networkIDManager)
+        return;
 
-	if (networkIDManager)
-		networkIDManager->StopTrackingNetworkIDObject(this);
+    if (networkIDManager != nullptr)
+        networkIDManager->StopTrackingNetworkIDObject(this);
 
-	networkIDManager=manager;
-	if (networkIDManager==0)
-	{
-		networkID = UNASSIGNED_NETWORK_ID;
-		return;
-	}
-	
-	if (networkID == UNASSIGNED_NETWORK_ID)
-	{
-		// Prior ID not set
-		networkID = networkIDManager->GetNewNetworkID();
-	}
+    networkIDManager = manager;
+    if (networkIDManager == nullptr)
+    {
+        networkID = UNASSIGNED_NETWORK_ID;
+        return;
+    }
 
-	networkIDManager->TrackNetworkIDObject(this);
+    if (networkID == UNASSIGNED_NETWORK_ID)
+    {
+        // Prior ID not set
+        networkID = networkIDManager->GetNewNetworkID();
+    }
+
+    networkIDManager->TrackNetworkIDObject(this);
 }
-NetworkIDManager * NetworkIDObject::GetNetworkIDManager( void ) const
-{
-	return networkIDManager;
-}
-NetworkID NetworkIDObject::GetNetworkID( void )
-{
-	return networkID;
-}
-void NetworkIDObject::SetNetworkID( NetworkID id )
-{
-	if (networkID==id)
-		return;
 
-	if ( id == UNASSIGNED_NETWORK_ID )
-	{
-		SetNetworkIDManager(0);
-		return;
-	}
-
-	if ( networkIDManager )
-		networkIDManager->StopTrackingNetworkIDObject(this);
-
-	networkID = id;
-
-	if (networkIDManager)
-		networkIDManager->TrackNetworkIDObject(this);
-}
-void NetworkIDObject::SetParent( void *_parent )
+NetworkIDManager *NetworkIDObject::GetNetworkIDManager() const
 {
-	parent=_parent;
+    return networkIDManager;
 }
-void* NetworkIDObject::GetParent( void ) const
+
+NetworkID NetworkIDObject::GetNetworkID()
 {
-	return parent;
+    return networkID;
+}
+
+void NetworkIDObject::SetNetworkID(NetworkID id)
+{
+    if (networkID == id)
+        return;
+
+    if (id == UNASSIGNED_NETWORK_ID)
+    {
+        SetNetworkIDManager(nullptr);
+        return;
+    }
+
+    if (networkIDManager != nullptr)
+        networkIDManager->StopTrackingNetworkIDObject(this);
+
+    networkID = id;
+
+    if (networkIDManager != nullptr)
+        networkIDManager->TrackNetworkIDObject(this);
+}
+
+void NetworkIDObject::SetParent(void *_parent)
+{
+    parent = _parent;
+}
+
+void *NetworkIDObject::GetParent() const
+{
+    return parent;
 }

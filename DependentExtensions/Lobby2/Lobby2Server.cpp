@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -251,8 +252,8 @@ void Lobby2Server::OnMessage(Packet *packet)
 			}
 			command.callerUserId=0;
 		}
-		command.callerSystemAddresses.Push(packet->systemAddress,__FILE__,__LINE__);
-		command.callerGuids.Push(packet->guid,__FILE__,__LINE__);
+		command.callerSystemAddresses.Push(packet->systemAddress);
+		command.callerGuids.Push(packet->guid);
 		command.server=this;
 		ExecuteCommand(&command);
 	}
@@ -455,7 +456,7 @@ void Lobby2Server::OnLogin(Lobby2ServerCommand *command, bool calledFromThread)
 
 			// Already logged in from this system address.
 			// Delete the existing entry, which will be reinserted.
-			RakNet::OP_DELETE(user,_FILE_AND_LINE_);
+			RakNet::OP_DELETE(user);
 			users.RemoveAtIndex(insertionIndex);
 		}
 		else
@@ -482,7 +483,7 @@ void Lobby2Server::OnLogin(Lobby2ServerCommand *command, bool calledFromThread)
 			SendRemoteLoginNotification(user->userName, user->systemAddresses);
 			LogoffFromRooms(user);
 
-			RakNet::OP_DELETE(user,__FILE__,__LINE__);
+			RakNet::OP_DELETE(user);
 			users.RemoveAtIndex(idx2);
 
 			insertionIndex = users.GetIndexFromKey(command->callingUserName, &objectExists);
@@ -495,7 +496,7 @@ void Lobby2Server::OnLogin(Lobby2ServerCommand *command, bool calledFromThread)
 			SendRemoteLoginNotification(user->userName, user->systemAddresses);
 			LogoffFromRooms(user);
 
-			RakNet::OP_DELETE(user,__FILE__,__LINE__);
+			RakNet::OP_DELETE(user);
 			users.RemoveAtIndex(idx3);
 
 			insertionIndex = users.GetIndexFromKey(command->callingUserName, &objectExists);
@@ -623,7 +624,7 @@ void Lobby2Server::RemoveUser(unsigned int index)
 	threadPool.UnlockInput();
 	LogoffFromRooms(user);
 
-	RakNet::OP_DELETE(user,__FILE__,__LINE__);
+	RakNet::OP_DELETE(user);
 	users.RemoveAtIndex(index);
 
 }

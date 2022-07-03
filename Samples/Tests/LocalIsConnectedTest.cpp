@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -44,12 +45,12 @@ int LocalIsConnectedTest::RunTest(DataStructures::List<RakString> params,bool is
 {
 
 	RakPeerInterface *server,*client;
-	destroyList.Clear(false,_FILE_AND_LINE_);
+	destroyList.Clear(false);
 
 	server=RakPeerInterface::GetInstance();
-	destroyList.Push(server,_FILE_AND_LINE_);
+	destroyList.Push(server);
 	client=RakPeerInterface::GetInstance();
-	destroyList.Push(client,_FILE_AND_LINE_);
+	destroyList.Push(client);
 
 	client->Startup(1,&SocketDescriptor(),1);
 	server->Startup(1,&SocketDescriptor(60000,0),1);

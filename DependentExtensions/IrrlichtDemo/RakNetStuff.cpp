@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -176,7 +177,7 @@ PlayerReplica::PlayerReplica()
 	isMoving=false;
 	deathTimeout=0;
 	lastUpdate=RakNet::GetTimeMS();
-	playerList.Push(this,_FILE_AND_LINE_);
+	playerList.Push(this);
 }
 PlayerReplica::~PlayerReplica()
 {

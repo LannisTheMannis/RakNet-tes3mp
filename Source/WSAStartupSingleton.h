@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -11,16 +12,18 @@
 #ifndef __WSA_STARTUP_SINGLETON_H
 #define __WSA_STARTUP_SINGLETON_H
 
+#ifdef _WIN32
 class WSAStartupSingleton
 {
 public:
-	WSAStartupSingleton();
-	~WSAStartupSingleton();
-	static void AddRef(void);
-	static void Deref(void);
+    WSAStartupSingleton();
+    ~WSAStartupSingleton();
+    static void AddRef(void);
+    static void Deref(void);
 
 protected:
-	static int refCount;
+    static int refCount;
 };
+#endif
 
 #endif

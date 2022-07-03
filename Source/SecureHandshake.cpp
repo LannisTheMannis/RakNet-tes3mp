@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -14,14 +15,8 @@
 
 #include "NativeFeatureIncludes.h"
 
-#if LIBCAT_SECURITY==1
-
-// If building a RakNet DLL, be sure to tweak the CAT_EXPORT macro meaning
-#if !defined(_RAKNET_LIB) && defined(_RAKNET_DLL)
-# define CAT_BUILD_DLL
-#else
-# define CAT_NEUTER_EXPORT
-#endif
+#ifdef LIBCAT_SECURITY
+#include "SecureHandshake.h"
 
 #include "cat/src/port/EndianNeutral.cpp"
 #include "cat/src/port/AlignedAlloc.cpp"

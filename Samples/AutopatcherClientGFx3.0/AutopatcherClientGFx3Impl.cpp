@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -122,9 +123,9 @@ void AutopatcherClientGFx3Impl::Init(const char *_pathToThisExe, GPtr<FxDelegate
 	movie=pMovie;
 	strcpy(pathToThisExe,_pathToThisExe);
 
-	autopatcherClient=RakNet::OP_NEW<AutopatcherClient>(_FILE_AND_LINE_);
-	fileListTransfer=RakNet::OP_NEW<FileListTransfer>(_FILE_AND_LINE_);
-	packetizedTCP=RakNet::OP_NEW<PacketizedTCP>(_FILE_AND_LINE_);
+	autopatcherClient=RakNet::OP_NEW<AutopatcherClient>();
+	fileListTransfer=RakNet::OP_NEW<FileListTransfer>();
+	packetizedTCP=RakNet::OP_NEW<PacketizedTCP>();
 	autopatcherClient->SetFileListTransferPlugin(fileListTransfer);
 	
 	packetizedTCP->AttachPlugin(autopatcherClient);
@@ -203,9 +204,9 @@ void AutopatcherClientGFx3Impl::Shutdown(void)
 	movie.Clear();
 	if (packetizedTCP)
 		packetizedTCP->Stop();
-	RakNet::OP_DELETE(autopatcherClient,_FILE_AND_LINE_);
-	RakNet::OP_DELETE(fileListTransfer,_FILE_AND_LINE_);
-	RakNet::OP_DELETE(packetizedTCP,_FILE_AND_LINE_);
+	RakNet::OP_DELETE(autopatcherClient);
+	RakNet::OP_DELETE(fileListTransfer);
+	RakNet::OP_DELETE(packetizedTCP);
 	autopatcherClient=0;
 	fileListTransfer=0;
 	packetizedTCP=0;

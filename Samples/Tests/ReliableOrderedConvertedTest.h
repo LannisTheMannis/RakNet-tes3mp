@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -40,9 +41,9 @@ public:
 	RakString ErrorCodeToString(int errorCode);
 	void DestroyPeers();
 protected:
-	void *LoggedMalloc(size_t size, const char *file, unsigned int line);
-	void LoggedFree(void *p, const char *file, unsigned int line);
-	void* LoggedRealloc(void *p, size_t size, const char *file, unsigned int line);
+	void *LoggedMalloc(size_t size);
+	void LoggedFree(void *p);
+	void* LoggedRealloc(void *p, size_t size);
 private:
 	DataStructures::List <RakPeerInterface *> destroyList;
 

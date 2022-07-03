@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -209,7 +210,7 @@ void Rackspace2::AddOperation(RakNet::RakString URL, OpType opType, json_t *data
 {
 	if (tcp==0)
 	{
-		tcp = RakNet::OP_NEW<TCPInterface>(_FILE_AND_LINE_);
+		tcp = RakNet::OP_NEW<TCPInterface>();
 
 		if (tcp->Start(0, 0, 8)==false)
 		{
@@ -217,7 +218,7 @@ void Rackspace2::AddOperation(RakNet::RakString URL, OpType opType, json_t *data
 				eventCallback->OnTCPFailure();
 		}
 
-		httpConnection2 = RakNet::OP_NEW<HTTPConnection2>(_FILE_AND_LINE_);
+		httpConnection2 = RakNet::OP_NEW<HTTPConnection2>();
 
 		tcp->AttachPlugin(httpConnection2);
 	}

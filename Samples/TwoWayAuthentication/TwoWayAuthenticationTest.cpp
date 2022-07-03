@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -37,7 +38,7 @@ int main(void)
 	// Initialize the message handlers
 	for (peerIndex=0; peerIndex < NUM_PEERS; peerIndex++)
 	{
-		twoWayAuthenticationPlugin[peerIndex]=RakNet::OP_NEW<RakNet::TwoWayAuthentication>(_FILE_AND_LINE_);
+		twoWayAuthenticationPlugin[peerIndex] = new RakNet::TwoWayAuthentication();
 		rakPeer[peerIndex]->AttachPlugin(twoWayAuthenticationPlugin[peerIndex]);
 		rakPeer[peerIndex]->SetMaximumIncomingConnections(NUM_PEERS);
 	}
@@ -185,7 +186,7 @@ int main(void)
 		RakNet::RakPeerInterface::DestroyInstance(rakPeer[i]);
 
 	for (peerIndex=0; peerIndex < NUM_PEERS; peerIndex++)
-		RakNet::OP_DELETE(twoWayAuthenticationPlugin[peerIndex], _FILE_AND_LINE_);
+		delete twoWayAuthenticationPlugin[peerIndex];
 
-	return 1;
+	return 0;
 }

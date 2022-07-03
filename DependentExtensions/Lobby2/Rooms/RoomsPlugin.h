@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -672,7 +673,7 @@ struct RoomMemberLeftRoom_Notification : public RoomsPluginNotification {
 /// \ingroup ROOMS_NOTIFICATIONS
 struct RoomMemberJoinedRoom_Notification : public RoomsPluginNotification {
 	RoomMemberJoinedRoom_Notification() {joinedRoomResult=0;}
-	~RoomMemberJoinedRoom_Notification() {if (joinedRoomResult!=0) RakNet::OP_DELETE(joinedRoomResult, _FILE_AND_LINE_);}
+	~RoomMemberJoinedRoom_Notification() {if (joinedRoomResult!=0) RakNet::OP_DELETE(joinedRoomResult);}
 	RoomID roomId;
 	JoinedRoomResult *joinedRoomResult;
 	virtual void Serialize(bool writeToBitstream, RakNet::BitStream *bitStream);

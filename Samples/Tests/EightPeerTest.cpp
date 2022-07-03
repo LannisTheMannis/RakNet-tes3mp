@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -41,13 +42,13 @@ int EightPeerTest::RunTest(DataStructures::List<RakString> params,bool isVerbose
 	const int numPackets=100;
 	Packet *packet;
 	BitStream bitStream;
-	destroyList.Clear(false,_FILE_AND_LINE_);
+	destroyList.Clear(false);
 
 	//Initializations of the arrays
 	for (int i=0;i<peerNum;i++)
 	{
 		peerList[i]=RakPeerInterface::GetInstance();
-		destroyList.Push(peerList[i],_FILE_AND_LINE_);
+		destroyList.Push(peerList[i]);
 		connectionAmount[i]=0;
 
 		for (int j=0;j<peerNum;j++)

@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -77,7 +78,7 @@ void main_RakNet(void)
 	// GAE SSL https://developers.google.com/appengine/docs/ssl
 	char URI[128];
 	sprintf(URI, "%s/customTable/update", serverURL);
-	TCPInterface *tcp = RakNet::OP_NEW<TCPInterface>(__FILE__,__LINE__); // Requires build with OPEN_SSL_CLIENT_SUPPORT
+	TCPInterface *tcp = RakNet::OP_NEW<TCPInterface>(); // Requires build with OPEN_SSL_CLIENT_SUPPORT
 	tcp->Start(0, 64);
 	tcp->Connect(serverURL, serverPort, true);
 	RakString rspost = RakString::FormatForPOST(

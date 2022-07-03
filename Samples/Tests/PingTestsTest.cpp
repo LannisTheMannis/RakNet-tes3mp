@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -42,14 +43,14 @@ int PingTestsTest::RunTest(DataStructures::List<RakString> params,bool isVerbose
 {
 
 	RakPeerInterface *sender,*sender2, *receiver;
-	destroyList.Clear(false,_FILE_AND_LINE_);
+	destroyList.Clear(false);
 
 	TestHelpers::StandardClientPrep(sender,destroyList);
 
 	TestHelpers::StandardClientPrep(sender2,destroyList);
 
 	receiver=RakPeerInterface::GetInstance();
-	destroyList.Push(receiver,_FILE_AND_LINE_);
+	destroyList.Push(receiver);
 	receiver->Startup(2, &SocketDescriptor(60000,0), 1);
 	receiver->SetMaximumIncomingConnections(2);
 	Packet * packet;

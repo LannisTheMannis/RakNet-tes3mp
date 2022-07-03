@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -47,7 +48,7 @@ void OverlayHelper::Startup(void)
 }
 void OverlayHelper::Shutdown(void)
 {
-	timedOverlays.Clear(false, _FILE_AND_LINE_ );
+	timedOverlays.Clear(false );
 	if (globalOverlay)
 		OverlayManager::getSingleton().destroy(globalOverlay);
 }
@@ -94,7 +95,7 @@ Overlay* OverlayHelper::GetGlobalOverlay(void) const
 }
 void OverlayHelper::FadeOverlayElement(OverlayElement* element, unsigned int totalTime, unsigned int fadeTimeMS, float finalAlpha, bool deleteAfterFade)
 {
-	timedOverlays.Insert(TimedOverlay(element, totalTime, fadeTimeMS, finalAlpha,deleteAfterFade), _FILE_AND_LINE_ );
+	timedOverlays.Insert(TimedOverlay(element, totalTime, fadeTimeMS, finalAlpha,deleteAfterFade) );
 }
 OverlayContainer* OverlayHelper::CreatePanel(const char *instanceName, bool addToGlobalOverlay)
 {

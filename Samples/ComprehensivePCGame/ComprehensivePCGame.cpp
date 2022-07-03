@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -338,7 +339,7 @@ class Team : public Replica3
 {
 public:
 	Team() {
-		game->teams.Push(this, _FILE_AND_LINE_); tmTeam.SetOwner(this);
+		game->teams.Push(this); tmTeam.SetOwner(this);
 	}
 	virtual ~Team() {
 		game->teams.RemoveAtIndex(game->teams.GetIndexOf(this));
@@ -401,7 +402,7 @@ public:
 class User : public Replica3
 {
 public:
-	User() {game->users.Push(this, _FILE_AND_LINE_); tmTeamMember.SetOwner(this); natType=NAT_TYPE_UNKNOWN;}
+	User() {game->users.Push(this); tmTeamMember.SetOwner(this); natType=NAT_TYPE_UNKNOWN;}
 	virtual ~User() {
 		game->users.RemoveAtIndex(game->users.GetIndexOf(this));
 	}
@@ -539,7 +540,7 @@ void PostRoomToMaster(void)
 	RakString jsonSerializedRoom;
 	DataStructures::List<NATTypeDetectionResult> natTypes;
 	for (unsigned int i=0; i < game->users.Size(); i++)
-		natTypes.Push(game->users[i]->natType, _FILE_AND_LINE_);
+		natTypes.Push(game->users[i]->natType);
 	SerializeToJSON(jsonSerializedRoom, game->gameName, natTypes);
 
 	RakString rowStr;
@@ -693,7 +694,7 @@ RAK_THREAD_DECLARATION(UPNPOpenWorker)
 
 	if (args->resultCallback)
 		args->resultCallback(success, args->portToOpen, args->userData);
-	RakNet::OP_DELETE(args, _FILE_AND_LINE_);
+	RakNet::OP_DELETE(args);
 	return 1;
 }
 
@@ -704,7 +705,7 @@ void UPNPOpenAsynch(unsigned short portToOpen,
 					void *userData
 					)
 {
-	UPNPOpenWorkerArgs *args = RakNet::OP_NEW<UPNPOpenWorkerArgs>(_FILE_AND_LINE_);
+	UPNPOpenWorkerArgs *args = RakNet::OP_NEW<UPNPOpenWorkerArgs>();
 	args->portToOpen = portToOpen;
 	args->timeout = timeout;
 	args->userData = userData;

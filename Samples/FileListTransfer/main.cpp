@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -167,7 +168,7 @@ int main()
 	char str[256];
 	Gets(str, sizeof(str));
 	if (str[0]==0)
-		strcpy(str, "D:\\RakNet\\Lib\\RakNetLibStaticDebug.lib");
+		strcpy(str, "D:\\RakNet\\lib\\RakNetLibStaticDebug.lib");
 	file=str;
 	fileCopy=file+"_copy";
 	// Reference this file, rather than add it in memory. Will send 1000 byte chunks. The reason to do this is so the whole file does not have to be in memory at once

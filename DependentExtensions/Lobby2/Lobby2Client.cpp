@@ -1,5 +1,6 @@
 /*
  *  Copyright (c) 2014, Oculus VR, Inc.
+ *  Copyright (c) 2016-2018, TES3MP Team
  *  All rights reserved.
  *
  *  This source code is licensed under the BSD-style license found in the
@@ -118,7 +119,7 @@ bool Lobby2Client::IsInIgnoreList(RakNet::RakString user) const
 }
 void Lobby2Client::ClearIgnoreList(void)
 {
-	ignoreList.Clear(_FILE_AND_LINE_);
+	ignoreList.Clear();
 }
 const DataStructures::OrderedList<RakNet::RakString, RakNet::RakString>* Lobby2Client::GetIgnoreList(void) const
 {
