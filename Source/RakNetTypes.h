@@ -298,9 +298,7 @@ struct RAK_DLL_EXPORT SystemAddress
 
 	bool IsLANAddress(void);
 
-	SystemAddress& operator = ( const SystemAddress& input );
 	constexpr SystemAddress& operator = ( const SystemAddress& input );
-
 	bool operator==( const SystemAddress& right ) const;
 	bool operator!=( const SystemAddress& right ) const;
 	bool operator > ( const SystemAddress& right ) const;
