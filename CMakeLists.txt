@@ -55,10 +55,6 @@ add_subdirectory(Lib)
 
 set(RAKNET_COMMON_LIBS RakNetLibStatic)
 
-install(LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/raknet
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/raknet
-        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/raknet
-)
 if( RAKNET_GENERATE_SAMPLES )
 	add_subdirectory(Samples)
 endif()
